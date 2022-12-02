@@ -1,8 +1,16 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using FerreteriaCamilo.Data;
+using Microsoft.EntityFrameworkCore;
+using FerreteriaCamilo.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+builder.Services.AddDbContext<Contexto>(con =>
+    con.UseSqlite(ConStr)
+);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
