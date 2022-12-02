@@ -1,0 +1,73 @@
+﻿@page "/C_Clientes"
+
+@inject ClientesBLL clientesBll;
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <label class="form-control">Filtro</label>
+        <select class="form-control" @bind="Filtro">
+            <option value="1">ClienteId</option>
+            <option value="2">Nombre</option>
+            <option value="3">Apellidos</option>
+            <option value="4">Edad</option>
+        </select>
+    </div>
+
+    <label class="form-control">Criterio</label>
+    <input type="text" class="form-control" @bind="Criterio">
+
+    <div>
+        <button type="button" @onclick="Buscar">
+            <i>Buscar</i>
+        </button>
+    </div>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ClienteId</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Direccion</th>
+                <th>Numero de Telefono</th>
+                <th>Numero de Celular</th>
+                <th>Edad</th>
+                <th>Cedula</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in lista)
+            {
+                <tr>
+                    <td>@cliente.ClienteId</td>
+                    <td>@cliente.Nombre</td>
+                    <td>@cliente.Apellidos</td>
+                    <td>@cliente.Direccion</td>
+                    <td>@cliente.NumeroTelefono</td>
+                    <td>@cliente.NumeroCelular</td>
+                    <td>@cliente.Edad</td>
+                    <td>@cliente.Cedula</td>
+                    <td><a href="R_Clientes/@cliente.ClienteId">Ver</a></td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</EditForm>
+
+@code
+{
+    public string Filtro { get; set; } = "";
+    public string Criterio { get; set; } = "";
+
+    public List<Clientes> lista { get; set; } = new List<Clientes>();
+    public void Buscar()
+    {
+        lista = clientesBll.GetList(o => true);
+    }
+
+}
