@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using FerreteriaCamilo.Data;
 using Microsoft.EntityFrameworkCore;
-using FerreteriaCamilo.DAL;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +12,15 @@ builder.Services.AddDbContext<Contexto>(con =>
     con.UseSqlite(ConStr)
 );
 
+
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<ClientesBLL>();
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
