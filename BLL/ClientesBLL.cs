@@ -1,10 +1,6 @@
 ﻿using System.Linq.Expressions;
-using FerreteriaCamilo.DAL;
-using FerreteriaCamilo.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FerreteriaCamilo.BLL
-{
     public class ClientesBLL
     {
         private Contexto _contexto;
@@ -55,4 +51,3 @@ namespace FerreteriaCamilo.BLL
             .ToList();
         }
     }
-}

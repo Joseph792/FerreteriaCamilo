@@ -1,0 +1,145 @@
+﻿@page "/R_Clientes"
+@page "/R_Clientes/{ClienteId:int}"
+
+@inject NotificationService notificacion
+@inject ClientesBLL clientesBll
+
+<EditForm Model="cliente" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="card-header">
+            <h3>Registro de Clientes</h3>
+        </div>
+        <div class="card-body">
+            <form>
+                @*ClienteId*@
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>ClienteId</label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="cliente.ClienteId" class="form-control col-4" />
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text"
+                                        @onclick="Buscar">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Nombre*@
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <InputText @bind-Value="cliente.Nombre" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Nombre)" />
+                </div>
+                @*Apellidos*@
+                <div class="form-group">
+                    <label>Apellidos</label>
+                    <InputText @bind-Value="cliente.Apellidos" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Apellidos)" />
+                </div>
+                @*Direccion*@
+                <div class="form-group">
+                    <label>Direccion</label>
+                    <InputText @bind-Value="cliente.Direccion" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Direccion)" />
+                </div>
+                @*Numero de Telefono*@
+                <div class="form-group">
+                    <label>Numero de Telefono</label>
+                    <InputText @bind-Value="cliente.NumeroTelefono" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.NumeroTelefono)" />
+                </div>
+                @*Numero de Celular*@
+                <div class="form-group">
+                    <label>Numero de Celular</label>
+                    <InputText @bind-Value="cliente.NumeroCelular" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.NumeroCelular)" />
+                </div>
+                @*Edad*@
+                <div class="form-group">
+                    <label>Edad</label>
+                    <InputNumber @bind-Value="cliente.Edad" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Edad)" />
+                </div>
+                @*Cedula*@
+                <div class="form-group">
+                    <label>Cedula</label>
+                    <InputText @bind-Value="cliente.Cedula" class="form-control" />
+                    <ValidationMessage For="@(() => cliente.Cedula)" />
+                </div>
+            </form>
+        </div>
+    <div class="card-footer">
+        <div class="form-group text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo"><i class="oi oi-file" />Nuevo</button>
+            <button type="submit" class="btn btn-lg btn-success"><i class="oi oi-document" />Guardar</button>
+            <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar"><i class="oi oi-trash" />Eliminar</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int ClienteId { get; set; }
+    public Clientes cliente { get; set; } = new Clientes();
+
+    public List<Clientes> lista { get; set; } = new List<Clientes>();
+
+    protected override void OnInitialized()
+    {
+        if (ClienteId > 0)
+        {
+            this.cliente.ClienteId = ClienteId;
+            this.Buscar();
+        }
+    }
+    private void Buscar()
+    {
+        if (cliente.ClienteId > 0)
+        {
+            var encontrado = clientesBll.Buscar(cliente.ClienteId);
+
+            if (encontrado != null)
+                this.cliente = encontrado;
+        }
+    }
+    public void Guardar()
+    {
+
+        bool guardo;
+
+        guardo = clientesBll.Guardar(cliente);
+        if (guardo)
+        {
+            //notificacion.ShowNotification("Guardado correctamente.");
+            Nuevo();
+        }
+        else
+        {
+            //notificacion.ShowNotification("No fue guardado correctamente", NotificationSeverity.Error);
+        }
+
+    }
+    public void Nuevo()
+    {
+        cliente = new Clientes();
+    }
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = clientesBll.Eliminar(cliente);
+
+        if (elimino)
+        {
+            //notificacion.ShowNotification("Eliminado correctamente.", NotificationSeverity.Error);
+            Nuevo();
+        }
+        else
+        {
+            //notificacion.ShowNotification("No se pudo eliminar correctamente.", NotificationSeverity.Warning);
+        }
+    }
+}

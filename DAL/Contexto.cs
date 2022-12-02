@@ -1,8 +1,5 @@
-﻿using FerreteriaCamilo.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace FerreteriaCamilo.DAL
-{
     public class Contexto : DbContext
     {
     public DbSet <Clientes> Clientes { get; set; }
@@ -10,4 +7,3 @@ namespace FerreteriaCamilo.DAL
     {
     }
     }
-}
