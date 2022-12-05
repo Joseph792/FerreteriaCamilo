@@ -12,5 +12,5 @@ public String? Referencia { get; set; }
 public int Costo { get; set; }
 [Range(minimum:0, maximum:5000000, ErrorMessage ="El costo es obligatorio")]
 public int Precio { get; set; }
-public String? SuplidorId { get; set; }
+public int SuplidorId { get; set; }
 }
