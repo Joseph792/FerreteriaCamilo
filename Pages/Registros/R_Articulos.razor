@@ -7,7 +7,7 @@
 <EditForm Model="articulo" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card-header">
-            <h3>Registro de Clientes</h3>
+            <h3>Registro de Articulos</h3>
         </div>
         <div class="card-body">
             <form>
@@ -34,7 +34,7 @@
                 </div>
                 @*Referencia*@
                 <div class="form-group">
-                    <label>Apellidos</label>
+                    <label>Referencia</label>
                     <InputText @bind-Value="articulo.Referencia" class="form-control" />
                     <ValidationMessage For="@(() => articulo.Referencia)" />
                 </div>

@@ -1,0 +1,69 @@
+@page "/C_Articulos"
+
+@inject ArticulosBLL articulosBll;
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <label class="form-control">Filtro</label>
+        <select class="form-control" @bind="Filtro">
+            <option value="1">ArticuloId</option>
+            <option value="2">Nombre</option>
+            <option value="3">Referencia</option>
+            <option value="4">SuplidorId</option>
+        </select>
+    </div>
+
+    <label class="form-control">Criterio</label>
+    <input type="text" class="form-control" @bind="Criterio">
+
+    <div>
+        <button type="button" @onclick="Buscar">
+            <i>Buscar</i>
+        </button>
+    </div>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>ArticuloId</th>
+                <th>Nombre</th>
+                <th>Referencia</th>
+                <th>Costo</th>
+                <th>Precio</th>
+                <th>SuplidorId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var articulo in lista)
+            {
+                <tr>
+                    <td>@articulo.ArticuloId</td>
+                    <td>@articulo.Nombre</td>
+                    <td>@articulo.Referencia</td>
+                    <td>@articulo.Costo</td>
+                    <td>@articulo.Precio</td>
+                    <td>@articulo.SuplidorId</td>
+                    <td><a href="R_Articulos/@articulo.ArticuloId">Ver</a></td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</EditForm>
+
+@code
+{
+    public string Filtro { get; set; } = "";
+    public string Criterio { get; set; } = "";
+
+    public List<Articulos> lista { get; set; } = new List<Articulos>();
+    public void Buscar()
+    {
+        lista = articulosBll.GetList(o => true);
+    }
+
+}
