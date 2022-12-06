@@ -8,7 +8,7 @@
         public String? Nombre { get; set; }
         [Required(ErrorMessage ="El Apellido o Apellidos son Obligatorios")]
         public String? Apellidos { get; set; }
-        [Required(ErrorMessage ="La Cedula es Obligatoria")]
+        [Required(ErrorMessage ="La Direccion es Obligatoria")]
         public String? Direccion { get; set; }
         [Required(ErrorMessage ="El Telefono es Obligatorio")]
         public String? NumeroTelefono { get; set; }

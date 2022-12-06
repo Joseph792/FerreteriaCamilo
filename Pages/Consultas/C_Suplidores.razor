@@ -1,0 +1,71 @@
+@page "/C_Suplidores"
+
+@inject SuplidoresBLL suplidoresBll;
+
+<EditForm Model="lista">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <label class="form-control">Filtro</label>
+        <select class="form-control" @bind="Filtro">
+            <option value="1">SuplidorId</option>
+            <option value="2">Nombre de Compañia</option>
+            <option value="3">Nombre de Vendedor</option>
+            <option value="4">Direccion</option>
+        </select>
+    </div>
+
+    <label class="form-control">Criterio</label>
+    <input type="text" class="form-control" @bind="Criterio">
+
+    <div>
+        <button type="button" @onclick="Buscar">
+            <i>Buscar</i>
+        </button>
+    </div>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>SuplidorId</th>
+                <th>Nombre de Compañia</th>
+                <th>Nombre de Vendedor</th>
+                <th>RNC</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var suplidor in lista)
+            {
+                <tr>
+                    <td>@suplidor.SuplidorId</td>
+                    <td>@suplidor.NombreComp</td>
+                    <td>@suplidor.NombreVendedor</td>
+                    <td>@suplidor.RNC</td>
+                    <td>@suplidor.Direccion</td>
+                    <td>@suplidor.Telefono</td>
+                    <td>@suplidor.Celular</td>
+                    <td><a href="R_Suplidores/@suplidor.SuplidorId">Ver</a></td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</EditForm>
+
+@code
+{
+    public string Filtro { get; set; } = "";
+    public string Criterio { get; set; } = "";
+
+    public List<Suplidores> lista { get; set; } = new List<Suplidores>();
+    public void Buscar()
+    {
+        lista = suplidoresBll.GetList(o => true);
+    }
+
+}
