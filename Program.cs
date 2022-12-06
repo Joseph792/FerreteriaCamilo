@@ -21,6 +21,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<ClientesBLL>();
 builder.Services.AddScoped<ArticulosBLL>();
+builder.Services.AddScoped<SuplidoresBLL>();
 
 builder.Services.AddSingleton<WeatherForecastService>();
 
